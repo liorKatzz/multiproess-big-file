@@ -29,23 +29,22 @@ def process_chunk_by_pos(pos):
     return word_counter
 
 
-if __name__ == "__main__":
 
-    start = time.time()
-    num_of_cores = multiprocessing.cpu_count()  # GETTING THE NUMBER OF CORES IN THE SYSTEM
-    pool = Pool(num_of_cores)
+start = time.time()
+num_of_cores = multiprocessing.cpu_count()  # GETTING THE NUMBER OF CORES IN THE SYSTEM
+pool = Pool(num_of_cores)
 
-    with open(big_file_path) as f:
+with open(big_file_path) as f:
 
-        # SPLIT THE FILE INTO EQUAL CHUNKS of a megabyte
-        num_of_chunks = int(math.ceil(os.path.getsize(big_file_path) / 1000000))
-        results = pool.map(process_chunk_by_pos, range(num_of_chunks))
+    # SPLIT THE FILE INTO EQUAL CHUNKS of a megabyte
+    num_of_chunks = int(math.ceil(os.path.getsize(big_file_path) / 1000000))
+    results = pool.map(process_chunk_by_pos, range(num_of_chunks))
 
-        # ADDING THE DICTIONARIES
-        final_result = add_dicts(results)
+    # ADDING THE DICTIONARIES
+    final_result = add_dicts(results)
 
-    end = time.time()
-    print("with multiprocessing:", end - start, "seconds")
+end = time.time()
+print("with multiprocessing:", end - start, "seconds")
 
 
 
